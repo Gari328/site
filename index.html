@@ -2,64 +2,61 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Обо мне</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        header, footer {
-            margin-bottom: 20px;
-        }
-        nav a {
-            margin-right: 15px;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обо мне - Николай Машин</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body>
-<header>
-    <h1>Мой первый сайт</h1>
-    <nav>
-        <a href="index.html">О сайте</a>
-        |
-        <a href="contacts.html">Контакты</a>
-    </nav>
-</header>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
 
-<main>
-    <section>
-        <h2>Обо мне</h2>
-        <p>Меня зовут Машин Николай. Я изучаю HTML и основы языка java.</p>
-        <p>Увлекаюсь веб‑разработкой, чтением книг, а также настольными и не очень играми.</p>
-    </section>
+    <header class="bg-white shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
+            <h1 class="text-2xl font-bold text-gray-900 mb-4 md:mb-0">Мой первый сайт</h1>
+            <nav class="flex space-x-6 font-medium">
+                <a href="index.html" class="text-blue-600 border-bottom-2 border-blue-600">О сайте</a>
+                <a href="contacts.html" class="hover:text-blue-600 transition-colors text-gray-600">Контакты</a>
+            </nav>
+        </div>
+    </header>
 
-    <section>
-        <h2>Мои интересы и достижения</h2>
-        <ul>
-            <li>Изучаю основы HTML и JavaScript.</li>
-            <li>Создал несколько анекдотов.</li>
-            <li>Прохожу какие-то онлайн‑курсы.</li>
-        </ul>
-    </section>
+    <main class="flex-grow max-w-4xl mx-auto px-4 py-8 w-full">
+        <section class="space-y-8">
+            <div class="bg-white p-8 rounded-xl shadow-sm">
+                <h2 class="text-3xl font-bold mb-4 text-blue-600 border-b pb-2">Обо мне</h2>
+                <div class="prose prose-lg">
+                    <p class="mb-4">Меня зовут <strong>Машин Николай</strong>. Я изучаю HTML и основы языка Java.</p>
+                    <p>Увлекаюсь веб‑разработкой, чтением книг, а также настольными и не очень играми.</p>
+                </div>
+            </div>
 
-    <section>
-        <h2>О проекте</h2>
-        <p>
-            Этот сайт состоит из двух страниц. На этой странице размещена информация обо мне
-            и о моих увлечениях. Со второй страницы можно написать мне сообщение через форму
-            обратной связи.
-        </p>
-        <p>
-            Перейти к контактам можно по 
-            <a href="contacts.html">этой ссылке</a>.
-        </p>
-    </section>
-</main>
+            <div class="bg-white p-8 rounded-xl shadow-sm">
+                <h2 class="text-2xl font-bold mb-4 text-blue-600">Мои интересы и достижения</h2>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>Изучаю основы HTML и JavaScript.</li>
+                    <li>Создал несколько анекдотов.</li>
+                    <li>Прохожу онлайн‑курсы по программированию.</li>
+                </ul>
+            </div>
 
-<footer>
-    <p>&copy; 2026 первый сайт</p>
-</footer>
+            <div class="bg-white p-8 rounded-xl shadow-sm border-l-4 border-blue-500">
+                <h2 class="text-2xl font-bold mb-4">О проекте</h2>
+                <p class="mb-4">
+                    Этот сайт состоит из двух страниц. На этой странице размещена информация обо мне
+                    и о моих увлечениях. Со второй страницы можно написать мне сообщение через форму
+                    обратной связи.
+                </p>
+                <p>
+                    Перейти к контактам можно по 
+                    <a href="contacts.html" class="text-blue-600 underline hover:text-blue-800 font-bold">этой ссылке</a>.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 py-8 mt-12">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <p>&copy; 2026 первый сайт. Все права защищены.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
