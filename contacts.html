@@ -85,69 +85,49 @@
     const responseContent = document.getElementById('response-content');
 
     form.addEventListener('submit', async function(e) {
-        e.preventDefault();
+    e.preventDefault();
+    
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    const formData = { name, email, message };
+
+    console.log('Отправляемые данные:', formData);
+
+    try {
+        const response = await fetch('http://158.160.142.81:8086/feedback', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+
+        console.log('Статус ответа:', response.status);
         
-        // Сбор данных из формы
-        const formData = {
-            name: document.getElementById('name').value.trim(),
-            email: document.getElementById('email').value.trim(),
-            message: document.getElementById('message').value.trim()
-        };
+        const result = await response.json();
+        console.log('Ответ от сервера:', result);
 
-        // Очистка предыдущих сообщений
-        errorMsg.classList.add('hidden');
-        successRes.classList.add('hidden');
-
-        // Проверка на пустые поля
-        let errors = [];
-        if (!formData.name) errors.push("Пожалуйста, введите ваше имя.");
-        if (!formData.email) {
-            errors.push("Пожалуйста, введите ваш email.");
-        } else if (!validateEmail(formData.email)) {
-            errors.push("Введите корректный адрес электронной почты.");
-        }
-        if (!formData.message) errors.push("Пожалуйста, введите текст комментария.");
-
-        if (errors.length > 0) {
-            errorMsg.innerHTML = errors.join('<br>');
-            errorMsg.classList.remove('hidden');
-            return;
-        }
-
-        try {
-            const response = await fetch('http://158.160.142.81:8086/feedback', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
-
-            const result = await response.json();
-
-            if (result.success) {
-                // Показываем блок успеха
-                form.classList.add('hidden');
-                responseContent.innerHTML = `
-                    <p class="mb-2"><strong>Здравствуйте, ${escapeHtml(formData.name)}!</strong></p>
-                    <p class="mb-1">Ваш email: <span class="font-medium">${escapeHtml(formData.email)}</span></p>
-                    <div class="mt-3 p-3 bg-white bg-opacity-50 rounded border border-green-100">
-                        <p class="text-sm font-semibold text-green-800 mb-1">Ваш комментарий:</p>
-                        <p class="italic text-gray-700">"${escapeHtml(formData.message)}"</p>
-                    </div>
-                    <p class="text-xs text-green-600 mt-4">Данные успешно сохранены на сервере.</p>
-                `;
-                successRes.classList.remove('hidden');
-            } else {
-                errorMsg.innerHTML = result.message || 'Ошибка при отправке';
-                errorMsg.classList.remove('hidden');
-            }
-        } catch (error) {
-            console.error(error);
-            errorMsg.innerHTML = 'Не удалось подключиться к серверу. Убедитесь, что бэкенд запущен.';
+        if (response.ok && result.success) {
+            form.classList.add('hidden');
+            responseContent.innerHTML = `
+                <p><strong>Здравствуйте, ${escapeHtml(name)}!</strong></p>
+                <p>Ваш email: ${escapeHtml(email)}</p>
+                <p class="italic">"${escapeHtml(message)}"</p>
+                <p class="text-green-600 mt-4">Отзыв успешно сохранён на сервере.</p>
+            `;
+            successRes.classList.remove('hidden');
+        } else {
+            errorMsg.innerHTML = result.message || 'Неизвестная ошибка';
             errorMsg.classList.remove('hidden');
         }
-    });
+    } catch (err) {
+        console.error('Ошибка при отправке:', err);
+        errorMsg.innerHTML = 'Не удалось подключиться к серверу';
+        errorMsg.classList.remove('hidden');
+    }
+});
 
     function validateEmail(email) {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
